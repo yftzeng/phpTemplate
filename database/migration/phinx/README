@@ -1,0 +1,25 @@
+1. edit & run `create_db_mysql.sh`
+2. ref dir migrations_sample
+3. make
+
+Modify "src/Phinx/Db/Table/Column.php"
+
+public function setDefault($default)
+{
+    if ($default === false || $default === '') {
+        $default = null;
+    }
+    $this->default = $default;
+    return $this;
+}
+
+to
+
+public function setDefault($default)
+{
+    if ($default === false) {
+        $default = null;
+    }
+    $this->default = $default;
+    return $this;
+}

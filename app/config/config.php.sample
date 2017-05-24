@@ -1,0 +1,121 @@
+<?php
+
+date_default_timezone_set('Asia/Taipei');
+set_time_limit(30);
+ini_set('default_socket_timeout', 5);
+ini_set('memory_limit', '512M');
+ini_set('session.name', 'MUZIK');
+ini_set('session_cookie_httponly', true);
+
+// set these in php.ini
+#upload_max_filesize = 128M
+#post_max_size = 128M
+
+# (http://www.westphahl.net/blog/2012/01/03/setting-up-https-with-nginx-and-startssl/)
+# If you run a HTTPS-only site, you should consider using HTTP Strict Transport Security
+# (HSTS). HSTS tells a browser that the website should only be accessed through a secure
+# connection.
+#
+# Remember this setting for 365 days (max-age=31536000)
+//header('Strict-Transport-Security: max-age=604800'); // 7 days
+
+###########################################
+### Global
+###########################################
+
+// MODE: prod, dev, test
+define('MODE', 'dev');
+define('PROTOCOL', 'http://');
+define('HOSTNAME', 'paganini.muzik-online.com');
+
+###########################################
+### Database
+###########################################
+
+$GLOBALS['DB_HOST'] = 'localhost';
+/* *
+// Smart UPDATE
+$GLOBALS['DB_HOST'] = array(
+    // array(DB_HOST, DB_PORT)
+    array('127.0.0.1', 3306),
+);
+/* */
+define('GLOBAL_DB_HOST_CACHE_KEY', 'GLOBAL_DB_HOST_CACHE_KEY');
+define('GLOBAL_DB_HOST_CACHE_TIME_BY_SECONDS', 300);
+
+define('DB_HOST', 'localhost');    // compatible with phalcon-config.php
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'demo');
+
+## mysql
+define('DB_PORT', 3306);
+define('DB_TYPE', 'mysql');
+## pgsql
+#define('DB_PORT', 5432);
+#define('DB_TYPE', 'pgsql');
+
+
+###########################################
+### Status Code
+###########################################
+
+//$status_code_array = parse_ini_file(__DIR__.'/status_code.ini');
+
+###########################################
+### Security
+###########################################
+
+define('SECURITY_KEY'        , '@$GRFVGW$%@#RCW$EVWERC#W$%Vsfsjd');
+define('SECURITY_ALGORITHM'  , 'AES-256-CTR');
+define('SECURITY_IV'         , 'ser8e%@#GW$V$def');
+define('SECURITY_SALT'       , 'skje5@$#RC$W%V@d');
+define('COOKIE_EXPIRED'      , 2592000);
+define('COOKIE_HASH'         , 'sha1');
+define('COOKIE_SECURE_LEVEL' , 3);
+define('COOKIE_ENABLE_SSL'   , false);
+
+###########################################
+### I18N
+###########################################
+
+define('I18N_LANGFILEPATH', __DIR__.'/lang');
+define('I18N_LANGFILECACHEPATH', __DIR__.'/../cache/lang');
+define('I18N_FALLBACKLANG', 'en-US');
+define('I18N_FORCEDLANG', 'zh-TW');
+
+###########################################
+### Log
+###########################################
+
+define('LOG_ROOT'    , __DIR__.'/../../var/log/');
+
+###########################################
+### Others
+###########################################
+
+define('API_URL', '/api/v');
+
+###########################################
+### HTTP
+###########################################
+
+header_remove('X-Powered-By');
+header('Server: lighttpd');
+
+# Clickjacking protection: allow iframes from same origin
+header('X-Frame-Options: SAMEORIGIN');
+# Enforce HTTPS connections for all requests, including subdomains
+header('Strict-Transport-Security: max-age=31536000; includeSubDomains; preload');
+# IE8+ and variants, XSS Protection
+header('X-XSS-Protection: 1;mode=block');
+# Protection from drive-by dynamic/executable IE files
+header('X-Content-Type-Options: nosniff');
+# Strict Content Security Policy, deny all external requests
+# for custom CSP headers use: http://cspbuilder.info
+# "Content-Security-Policy":   Chrome 25+, Firefox 23+, Safari 7+
+# "X-Content-Security-Policy":             Firefox 4+ ,           , IE 10+
+# "X-WebKit-CSP":              Chrome 14+,              Safari 6+
+//header("Content-Security-Policy: script-src 'self''");
+//header("X-Content-Security-Policy: script-src 'self'");
+//header("X-WebKit-CSP: script-src 'self'");

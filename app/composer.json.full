@@ -1,0 +1,39 @@
+{
+    "config": {
+        "bin-dir": "vendor/bin",
+        "preferred-install": "dist",
+        "optimize-autoloader": true,
+        "vendor-dir": "vendor",
+        "cache-dir": "vendor/_cache"
+    },
+    "require": {
+        "j4mie/idiorm": "dev-master",
+        "suin/php-rss-writer": "dev-master",
+        "nesbot/carbon": "dev-master",
+        "monolog/monolog": "dev-master",
+        "swiftmailer/swiftmailer": "dev-master",
+        "robmorgan/phinx": "dev-master",
+        "doctrine/common": "dev-master",
+        "doctrine/dbal": "*",
+        "doctrine/orm": "dev-master",
+        "doctrine/migrations": "dev-master",
+        "phansys/getid3": "dev-master",
+        "devster/ubench": "dev-master",
+        "phroute/phroute": "dev-master",
+        "yftzeng/wowlog": "dev-master",
+        "yftzeng/wowfilter": "dev-master",
+        "yftzeng/wow-function": "dev-master",
+        "yftzeng/wow-simple-error-handler": "dev-master",
+        "yftzeng/wow-error-handler": "dev-master",
+        "yftzeng/wow-secure-cookie": "dev-master",
+        "yftzeng/wow-i18n": "dev-master",
+        "yftzeng/wow-uuid": "dev-master",
+        "yftzeng/wow-jwt": "dev-master",
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7",
+        "facebook/webdriver": "dev-master",
+        "ext-curl": "*"
+    }
+}

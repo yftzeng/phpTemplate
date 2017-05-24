@@ -1,0 +1,46 @@
+server {
+    listen       80 default_server;
+    spdy_headers_comp 6;
+    server_name  _;
+
+    charset      utf-8;
+
+    proxy_buffer_size        128k;
+    proxy_buffers            4 256k;
+    proxy_busy_buffers_size  256k;
+
+    root /var/www/html/public/api;
+    index  index.php index.html index.htm;
+
+    error_page 404 /404;
+
+    #location /api/v3 {
+    #    root /var/www/html/public;
+    #    try_files $uri $uri/api/ /api/index.php?$args;
+    #}
+
+    location ~ /v([\d]+)/ {
+        try_files $uri $uri /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri = /404;
+        fastcgi_buffer_size        128k;
+        fastcgi_buffers            256 16k;
+        fastcgi_busy_buffers_size  256k;
+
+        include fastcgi_params;
+        fastcgi_pass    backend;
+        fastcgi_index   index.php;
+        #fastcgi_split_path_info       ^(.+\.php)(/.+)$;
+        fastcgi_param PATH_INFO       $fastcgi_path_info;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        #fastcgi_param   SCRIPT_FILENAME $script_filename;
+    }
+
+    location ~* \.(png|jpg|jpeg|gif|css|js|xml)$ {
+        access_log    off;
+        log_not_found off;
+        expires       30d;
+    }
+}
